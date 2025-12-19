@@ -1,20 +1,52 @@
-# gsplat-ws
+# gsplat_examlpes_uv
 
-基于gsplat库的高斯泼溅(Gaussian Splatting)渲染与训练Python工作空间。
+基于gsplat库的高斯泼溅(Gaussian Splatting)渲染与训练例程（官方）。
 
 ## 环境要求
 
-- Python 3.12+
-- CUDA支持（推荐使用GPU以获得最佳性能）
-- UV包管理器
+- Python 3.12
+- CUDA
+- UV
 
 ## 快速开始
 
 ### 安装依赖
-```bash
-# 同步环境和安装依赖
-uv sync
-```
+- 安装cuda
+
+  > 安装gsplat默认安装的torch的cuda版本，一般为当前最新的pytorch支持的默认版本
+
+  参考https://developer.nvidia.com/cuda-12-8-1-download-archive?target_os=Linux
+
+  设置环境
+
+  ```bash
+  export CUDA_HOME=/usr/local/cuda-12
+  export PATH=$CUDA_HOME/bin:$PATH
+  export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+  ```
+
+  安装nvcc并检查版本
+
+  ```bash
+  sudo apt install nvidia-cuda-toolkit
+  ncvv -V
+  ```
+
+- 安装gsplat
+
+  当前版本gsplat安装时会一并安装cuda版本的torch，因此不需要后续独立安装，gsplat需要使用`uv pip install`安装。
+
+  ```bash
+  uv pip install gsplat
+  ```
+
+- 安装其他依赖库
+
+  gsplat默认`fused-ssim`的版本不支持uv，新版本支持，所以直接把版本提高到当前最新的`897999e3b1c4c09233e5b00c2621df757a2c6560`，`fused-bilagrid`没有用到所以不进行安装。
+
+  ```bash
+  uv sync
+  ```
 
 ### 基础训练
 ```bash
