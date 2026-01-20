@@ -5,6 +5,7 @@ description = "gsplat prject"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "gsplat",
     "fused-ssim",
     "imageio[ffmpeg]>=2.37.2",
     "matplotlib>=3.10.8",
@@ -12,7 +13,6 @@ dependencies = [
     "numpy<2.0.0",
     "opencv-python>=4.11.0.86",
     "pillow>=12.0.0",
-    "pycolmap",
     "pyyaml>=6.0.3",
     "scikit-learn>=1.8.0",
     "splines>=0.3.3",
@@ -25,6 +25,5 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-pycolmap = { git = "https://github.com/rmbrualla/pycolmap", rev = "cc7ea4b7301720ac29287dbe450952511b32125e" }
 nerfview = { git = "https://github.com/nerfstudio-project/nerfview", rev = "4538024fe0d15fd1a0e4d760f3695fc44ca72787" }
 fused-ssim = { git = "https://github.com/rahul-goel/fused-ssim", rev = "897999e3b1c4c09233e5b00c2621df757a2c6560" }
