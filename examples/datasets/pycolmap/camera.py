@@ -24,8 +24,8 @@ def opencv_distortion(camera, x):
     r_sq = x_sq.sum(axis=-1, keepdims=True)
 
     return x * (1. + r_sq * (camera.k1 + camera.k2 * r_sq)) + np.concatenate((
-        2. * camera.p1 * xy + camera.p2 * (r_sq + 2. * x_sq),
-        camera.p1 * (r_sq + 2. * y_sq) + 2. * camera.p2 * xy),
+        2. * camera.p1 * xy + camera.p2 * (r_sq + 2. * x_sq[..., :1]),
+        camera.p1 * (r_sq + 2. * x_sq[..., 1:]) + 2. * camera.p2 * xy),
         axis=-1)
 
 

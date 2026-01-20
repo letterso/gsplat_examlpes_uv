@@ -7,7 +7,7 @@ import sqlite3
 # convert SQLite BLOBs to/from numpy arrays
 
 def array_to_blob(arr):
-    return np.getbuffer(arr)
+    return arr.tobytes()
 
 def blob_to_array(blob, dtype, shape=(-1,)):
     return np.frombuffer(blob, dtype).reshape(*shape)
@@ -26,7 +26,7 @@ def get_pair_id(image_id1, image_id2):
 
 def get_image_ids_from_pair_id(pair_id):
     image_id2 = pair_id % MAX_IMAGE_ID
-    return (pair_id - image_id2) / MAX_IMAGE_ID, image_id2
+    return (pair_id - image_id2) // MAX_IMAGE_ID, image_id2
 
 
 #-------------------------------------------------------------------------------
