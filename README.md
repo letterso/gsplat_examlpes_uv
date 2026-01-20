@@ -41,8 +41,9 @@
   ```
 
 - 安装其他依赖库
-
-  gsplat默认`fused-ssim`的版本不支持uv，新版本支持，所以直接把版本提高到当前最新的`897999e3b1c4c09233e5b00c2621df757a2c6560`，`fused-bilagrid`没有用到所以不进行安装。
+  - gsplat默认fused-ssim的版本不支持uv，新版本支持，所以直接把版本提高到当前最新的897999e3b1c4c09233e5b00c2621df757a2c6560。
+  - fused-bilagrid没有用到所以不进行安装。
+  - pyclomap默认的版本在python3存在兼容性问题，读取txt数据时会报错，不建议使用，在仓库中基于源码对python3做了兼容性优化。
 
   ```bash
   uv sync
@@ -51,7 +52,7 @@
 ### 基础训练
 ```bash
 # 单GPU训练
-uv run examples/simple_trainer.py --data.path <数据集路径> --output.dir <输出路径>
+uv run examples/simple_trainer.py --data-dir <数据集路径> --result-dir <输出路径>
 
 # 分布式训练（4个GPU）
 CUDA_VISIBLE_DEVICES=0,1,2,3 uv run examples/simple_trainer.py default --steps_scaler 0.25
