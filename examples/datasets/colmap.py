@@ -7,7 +7,7 @@ import imageio.v2 as imageio
 import numpy as np
 import torch
 from PIL import Image
-from pycolmap import SceneManager
+from .pycolmap import SceneManager
 from tqdm import tqdm
 from typing_extensions import assert_never
 
@@ -182,9 +182,18 @@ class Parser:
             image_dir_suffix = ""
         colmap_image_dir = os.path.join(data_dir, "images")
         image_dir = os.path.join(data_dir, "images" + image_dir_suffix)
-        for d in [image_dir, colmap_image_dir]:
-            if not os.path.exists(d):
-                raise ValueError(f"Image folder {d} does not exist.")
+
+        if not os.path.exists(colmap_image_dir):
+            raise ValueError(f"Image folder {colmap_image_dir} does not exist.")
+
+        # When downsampled images are requested but missing, generate them on the fly.
+        if factor > 1 and not os.path.exists(image_dir):
+            image_dir = _resize_image_folder(
+                colmap_image_dir, image_dir, factor=factor
+            )
+
+        if not os.path.exists(image_dir):
+            raise ValueError(f"Image folder {image_dir} does not exist.")
 
         # Downsampled images may have different names vs images used for COLMAP,
         # so we need to map between the two sorted lists of files.
