@@ -1108,6 +1108,10 @@ class Runner:
             "alpha": "RGB",
         }
 
+        backgrounds = (
+            torch.tensor(render_tab_state.backgrounds, device=self.device).float()
+            / 255.0
+        )
         render_colors, render_alphas, info = self.rasterize_splats(
             camtoworlds=c2w[None],
             Ks=K[None],
@@ -1118,8 +1122,7 @@ class Runner:
             far_plane=render_tab_state.far_plane,
             radius_clip=render_tab_state.radius_clip,
             eps2d=render_tab_state.eps2d,
-            backgrounds=(torch.tensor(render_tab_state.backgrounds, device=self.device).float()
-            / 255.0).view(1, -1),
+            backgrounds=backgrounds,
             render_mode=RENDER_MODE_MAP[render_tab_state.render_mode],
             rasterize_mode=render_tab_state.rasterize_mode,
             camera_model=render_tab_state.camera_model,
